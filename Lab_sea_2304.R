@@ -22,3 +22,20 @@ ggplot(top10, aes(x = reorder(Country.Region, Confirmed),
        y = "Total Confirmed Cases") +
   theme_minimal(base_size = 14)
 
+
+#Bar chart on region
+region_data <- data %>%
+  group_by(WHO.Region) %>%
+  summarise(TotalConfirmed = sum(Confirmed, na.rm = TRUE)) %>%
+  arrange(desc(TotalConfirmed))
+
+# Plot
+ggplot(region_data, aes(x = reorder(WHO.Region, TotalConfirmed),
+                        y = TotalConfirmed)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Total Confirmed COVID-19 Cases by WHO Region",
+       x = "WHO Region",
+       y = "Total Confirmed Cases") +
+  theme_minimal(base_size = 14)
+
